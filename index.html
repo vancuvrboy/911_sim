@@ -39,7 +39,7 @@
         }
 
         #chatBox { 
-            height: 600px;
+            height: 750px;
             overflow-y: scroll; 
             border: 2px solid darkblue; /* Thicker dark blue border */
             margin-bottom: 10px; 
@@ -52,9 +52,12 @@
         }
 
         #userInput { 
-            width: calc(100% - 24px); /* Adjust for the border and padding */
+            /* width: calc(100% - 24px); Adjust for the border and padding
+            border: 2px solid darkblue; Thicker dark blue border
+            padding: 4px; Slightly increased padding for visual balance */
+            width: auto; /* Allows the button to size according to its content */
+            padding: 4px 8px; /* Padding added for visual balance */
             border: 2px solid darkblue; /* Thicker dark blue border */
-            padding: 4px; /* Slightly increased padding for visual balance */
         }
 
         #sendButton { 
