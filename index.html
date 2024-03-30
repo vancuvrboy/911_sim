@@ -164,8 +164,7 @@
                         const lat = position.coords.latitude;
                         const long = position.coords.longitude;
                         const message = `My location is ${lat}, ${long}`;
-                        appendMessage('User', message);
-                        sendMessage();
+                        sendMessage(message);
                     }, function(error) {
                         console.error("Error obtaining location", error);
                         appendMessage('System Message', 'GPS Location not supported on this device.');
@@ -184,21 +183,22 @@
             promptUserIfInactive();
         });
     
-        function sendMessage() {
-            var input = document.getElementById('userInput');
-            var message = input.value.trim();
-    
-            if (message) {
-                appendMessage('User', message);
+        function sendMessage(message) {
+            // Get the user input message. Its either passed as an argument or read from the input field
+            var inputMessage = message || document.getElementById('userInput').value.trim();
+
+            if (inputMessage) {
+                appendMessage('User', inputMessage);
                 // Update the last message time and reset the prompt counter
                 lastUserMessageTime = new Date();
                 promptCount = 0; // Reset prompt counter
-    
+
                 // Call the server-side code
                 sendPostRequest(message_stream);
-                input.value = ''; // Clear input after sending
+                document.getElementById('userInput').value = ''; // Clear input after sending
             }
         }
+
     
         function promptUserIfInactive() {
             var currentTime = new Date();
@@ -264,7 +264,7 @@
             chatBox.appendChild(messageElement);
             chatBox.scrollTop = chatBox.scrollHeight;
     
-            if (send == 'System Message'){ // don't push system messages onto message stream
+            if (sender == 'System Message'){ // don't push system messages onto message stream
                 return;
             } else { // push onto message stream
                 var role = sender === 'User' ? 'user' : 'assistant';
