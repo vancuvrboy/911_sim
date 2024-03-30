@@ -165,9 +165,10 @@
                         const long = position.coords.longitude;
                         const message = `My location is ${lat}, ${long}`;
                         appendMessage('User', message);
+                        sendMessage();
                     }, function(error) {
                         console.error("Error obtaining location", error);
-                        appendMessage('User', 'I tried to send my location, but geolocation is not supported.');
+                        appendMessage('System Message', 'GPS Location not supported on this device.');
                     }, {
                         enableHighAccuracy: true, // Requests the most accurate data
                         timeout: 5000, // Maximum time to wait for a response
@@ -175,7 +176,7 @@
                     });
                 } else {
                     console.log("Geolocation is not supported by this browser.");
-                    appendMessage('User', 'I tried to send my location, but geolocation is not supported.');
+                    appendMessage('System Message', 'GPS Location not supported on this device.');
                 }
             });
     
@@ -263,8 +264,12 @@
             chatBox.appendChild(messageElement);
             chatBox.scrollTop = chatBox.scrollHeight;
     
-            var role = sender === 'User' ? 'user' : 'assistant';
-            message_stream.push({ role: role, content: message });
+            if (send == 'System Message'){ // don't push system messages onto message stream
+                return;
+            } else { // push onto message stream
+                var role = sender === 'User' ? 'user' : 'assistant';
+                message_stream.push({ role: role, content: message });
+            }
         }
     </script>
     
