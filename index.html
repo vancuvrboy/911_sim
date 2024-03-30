@@ -66,6 +66,15 @@
             cursor: pointer;
         }
 
+        #sendGPS { 
+            width: auto; /* Allows the button to size according to its content */
+            padding: 4px 8px; /* Padding added for visual balance */
+            border: 2px solid darkblue; /* Thicker dark blue border */
+            background-color: yellow; /* Background color for the GPS button */
+            cursor: pointer;
+            margin-bottom: 5px; /* Consistent with sendButton for vertical spacing */
+        }
+
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
             width: 36px;
@@ -119,6 +128,7 @@
             <div id="chatBox"></div>
             <input type="text" id="userInput" placeholder="Type your message...">
             <button id="sendButton">Send</button>
+            <button id="sendGPS">Send Location</button>
         </div>
     </div>
     
@@ -145,6 +155,27 @@
                 if (event.key === 'Enter') {
                     event.preventDefault(); // Prevent the default action to avoid form submission
                     sendMessage();
+                }
+            });
+
+            document.getElementById('sendGPS').addEventListener('click', function() {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        const lat = position.coords.latitude;
+                        const long = position.coords.longitude;
+                        const message = `My location is ${lat}, ${long}`;
+                        appendMessage('User', message);
+                    }, function(error) {
+                        console.error("Error obtaining location", error);
+                        appendMessage('User', 'I tried to send my location, but geolocation is not supported.');
+                    }, {
+                        enableHighAccuracy: true, // Requests the most accurate data
+                        timeout: 5000, // Maximum time to wait for a response
+                        maximumAge: 0 // Disallows cached positions for accuracy
+                    });
+                } else {
+                    console.log("Geolocation is not supported by this browser.");
+                    appendMessage('User', 'I tried to send my location, but geolocation is not supported.');
                 }
             });
     
