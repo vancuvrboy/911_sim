@@ -29,8 +29,9 @@ function doPost(e) {
     answering one of these options or by describing their emergency, proceed first by \
     reassuring them, then asking clarifying questions. If a specific service is requested, \
     follow up by asking their location, then telling them the service has been called \
-    and they are on the way. If they have not asked for a specific service, ask \
-    clarifying questions to categorize \
+    and they are on the way. If they send you their GPS coordinates, then also acknowledge \
+    by repeating the city or town plus address (if available). \
+    If they have not asked for a specific service, ask clarifying questions to categorize \
     the chat into one of the predefined scenarios and follow the outlined procedure that \
     would be most appropriate based on your training. \
     Your responses should be calm, clear, and informative, prioritizing the users \
