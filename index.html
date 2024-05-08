@@ -219,6 +219,9 @@
     
             setTimeout(promptUserIfInactive, randomDelay);
         }
+
+        // send a message to the screen that you are about to send the message to the server
+        appendMessage('System Message', 'About to send message to server.');
     
         function sendPostRequest(userInput) {
             const proxyUrl = "https://cors-anywhere.herokuapp.com/";
