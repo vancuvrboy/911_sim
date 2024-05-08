@@ -194,6 +194,7 @@
                 promptCount = 0; // Reset prompt counter
 
                 // Call the server-side code
+    
                 sendPostRequest(message_stream);
                 document.getElementById('userInput').value = ''; // Clear input after sending
             }
@@ -220,13 +221,13 @@
             setTimeout(promptUserIfInactive, randomDelay);
         }
 
-        // send a message to the screen that you are about to send the message to the server
-        appendMessage('System Message', 'About to send message to server.');
-    
         function sendPostRequest(userInput) {
             const proxyUrl = "https://cors-anywhere.herokuapp.com/";
             const targetUrl = 'https://script.google.com/macros/s/AKfycbyb5M7pmhkSBDD8YOX_rqUMMENIXs7WsTj-4tHE9I8/dev';
             
+            // send a message to the screen that you are about to send the message to the server and append server URL
+            // appendMessage('System Message', 'About to send message to server.');
+            appendMessage('System Message', 'Server URL: ' + targetUrl);
     
             var chatBox = document.getElementById('chatBox');
             var spinner = document.createElement('div');
